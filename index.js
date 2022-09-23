@@ -27,11 +27,11 @@ setInterval(function() {
 
     $("h1.price").text(`BTC: ${currentPrice} $`);
     
-    if (diffPrice < -4) { // when down 
+    if (diffPrice < -10) { // when down 
       offsetIndex = 2 - currentIndex;
       currentIndex = 2;
     }
-    else if (diffPrice > 4) { // when up
+    else if (diffPrice > 10) { // when up
       offsetIndex = 1 - currentIndex;
       currentIndex = 1;
     }
@@ -40,7 +40,7 @@ setInterval(function() {
       currentIndex = 0;
     } 
     console.log(`Current Price: ${currentPrice}, Diff Price: ${diffPrice}`);
-  })}, 3000);
+  })}, 180000);
 
 var VIDEO_SOURCES = [
   {
