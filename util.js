@@ -274,3 +274,8 @@ function ChromaFilter() {
   this.uniforms.smoothing = 0.1;
   this.uniforms.colorToReplace = [0 / 255, 167 / 255, 62 / 255];
 };
+
+function toJapaneseString() { 
+  const date = new Date();
+  return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+}

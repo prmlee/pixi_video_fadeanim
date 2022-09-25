@@ -20,14 +20,23 @@ $("#checkEveryInfo").text(`${intervalDuration/1000} seconds`);
 // display the BTC price
 $("h1.price").text(`BTC: ${currentPrice} $`);
 
-$.get(apiUri, function (data, status) { 
-  if (!status) { 
-    $("h1.price").text("Internet Connection Problem or API Issue");
+$.get(apiUri, function (data) {
+  if (!navigator.onLine) { 
+    $("h1.price").text("Internet Connection Problem");
     return;
   }
+  if (!data) { 
+    $("h1.price").text("API Issue");
+    return;
+  }
+
   currentPrice = parseFloat(data.data.amount);
   $("h1.price").text(`BTC: ${currentPrice} $`);
-  $("#historyInfo tbody").append(`<tr><td>${currentPrice}$</td><td>${(new Date()).toLocaleString()}</td></tr>`);
+  $("#historyInfo tbody").prepend(`<tr>
+      <td>${currentPrice}$</td>
+      <td>${toJapaneseString(Date())}</td>
+      <td style='color:blue'>🡒</td>
+    </tr>`);
 })
 
 setInterval(function () {
@@ -40,9 +49,17 @@ setInterval(function () {
 }, 1000);
 
 setInterval(function() {
-  $.get(apiUri, function (data, status) {
-    if (!status) { 
-      $("h1.price").text("Internet Connection Problem or API Issue");
+  $.get(apiUri, function (data) {
+    let videoType = " 🡒 ";
+    let videoColor = "blue";
+
+    if (!navigator.onLine) { 
+      $("h1.price").text("Internet Connection Problem");
+      return;
+    }
+
+    if (!data) { 
+      $("h1.price").text("API Issue");
       return;
     }
     // calculate the price gap between current and previous;
@@ -55,18 +72,24 @@ setInterval(function() {
     if (diffPrice < -10) { // when down 
       offsetIndex = 2 - currentIndex;
       currentIndex = 2;
+      videoType = " 🡓 ";
+      videoColor = "red";
     }
     else if (diffPrice > 10) { // when up
       offsetIndex = 1 - currentIndex;
       currentIndex = 1;
+      videoType = " 🡑 ";
+      videoColor = "green";
     }
     else { // when stable
       offsetIndex = 0 - currentIndex;
       currentIndex = 0;
+      videoType = " 🡒 ";
+      videoColor = "blue";
     } 
 
-    $("#historyInfo tbody").append(`<tr><td>${currentPrice}$</td><td>${(new Date()).toLocaleString()}</td></tr>`);
-    $("#scrollPanel").scrollTop($("#scrollPanel")[0].scrollHeight);
+    $("#historyInfo tbody").prepend(`<tr><td>${currentPrice}$</td><td>${toJapaneseString(Date())}</td><td style='color: ${videoColor}'>${videoType}</td></tr>`);
+    // $("#scrollPanel").scrollTop($("#scrollPanel")[0].scrollHeight);
 
     console.log(`Current Price: ${currentPrice}, Diff Price: ${diffPrice}`);
   })}, intervalDuration);
