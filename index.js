@@ -2,6 +2,23 @@ const apiUri = "https://api.coinbase.com/v2/prices/BTC-USD/buy";
 
 var currentPrice = diffPrice = 0;
 var currentIndex = offsetIndex = 0;
+const intervalDuration = 180000;
+let countDownDuration = intervalDuration;
+
+// display debug info when pressing "i" key
+$(document).keypress(function (event) { 
+  if (event.key === 'i') { 
+    const display = $("div.infoArea.debug").css("display");
+    $("div.infoArea.debug").css("display", display == "none" ? "block" : "none");
+    $("div.infoArea.pub").css("display", display == "none" ? "none" : "block");
+  }
+});
+
+// dsiplay the "check every" info
+$("#checkEveryInfo").text(`${intervalDuration/1000} seconds`);
+
+// display the BTC price
+$("h1.price").text(`BTC: ${currentPrice} $`);
 
 $.get(apiUri, function (data, status) { 
   if (!status) { 
@@ -10,9 +27,17 @@ $.get(apiUri, function (data, status) {
   }
   currentPrice = parseFloat(data.data.amount);
   $("h1.price").text(`BTC: ${currentPrice} $`);
+  $("#historyInfo tbody").append(`<tr><td>${currentPrice}$</td><td>${(new Date()).toLocaleString()}</td></tr>`);
 })
 
-$("h1.price").text(`BTC: ${currentPrice} $`);
+setInterval(function () {
+  if (countDownDuration < 2000) {
+    countDownDuration = intervalDuration;
+  } else { 
+    countDownDuration -= 1000;
+  }
+  $("#updateInInfo").text(`${countDownDuration / 1000} seconds`);
+}, 1000);
 
 setInterval(function() {
   $.get(apiUri, function (data, status) {
@@ -39,8 +64,12 @@ setInterval(function() {
       offsetIndex = 0 - currentIndex;
       currentIndex = 0;
     } 
+
+    $("#historyInfo tbody").append(`<tr><td>${currentPrice}$</td><td>${(new Date()).toLocaleString()}</td></tr>`);
+    $("#scrollPanel").scrollTop($("#scrollPanel")[0].scrollHeight);
+
     console.log(`Current Price: ${currentPrice}, Diff Price: ${diffPrice}`);
-  })}, 180000);
+  })}, intervalDuration);
 
 var VIDEO_SOURCES = [
   {

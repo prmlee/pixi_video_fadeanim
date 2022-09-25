@@ -7,13 +7,35 @@
   <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-
-  <h1 class="price">BTC:19927 $</h1>
+  <div class="infoArea debug">
+    <h1 class="infoLabel">Debug Info</h1>
+    <p>
+      <span class="label">Check Every: </span>
+      <span class="label" id="checkEveryInfo"></span>
+    </p>
+    <p>
+      <span class="label">Update In: </span>
+      <span class="label" id="updateInInfo"></span>
+    </p>
+    <h1 class="infoLabel">History</h1>
+    <div id="scrollPanel">
+      <table class="infoTable" id="historyInfo">
+        <thead>
+          <tr>
+            <th id="headForPrice">Price</th>
+            <th id="headForDate">Date</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+  <div class="infoArea pub">
+    <h1 class="price">BTC:19927$</h1>
+  </div>
   <script src='https://cdnjs.cloudflare.com/ajax/libs/pixi.js/4.5.1/pixi.min.js'></script>
   <script src='https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js'>
-  
   </script><script  src="./util.js"></script>
   </script><script  src="./index.js"></script>
-
 </body>
 </html>

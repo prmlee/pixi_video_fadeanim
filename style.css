@@ -1,17 +1,36 @@
 body {
+  height: 100vh;
   box-sizing: border-box;
   margin: 0;
   position: relative;
   overflow: hidden;
 }
 
-h1.price {
+div.infoArea {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   color: white;
   z-index: 3;
+}
+
+div.debug {
+  display: none;
+}
+
+div#scrollPanel {
+  overflow-y: auto;
+}
+
+#historyInfo {
+  width: 280px;
+  display: inline-block;
+  max-height: 200px;
+}
+
+#historyInfo td {
+  padding-left: 15px;
 }
 
 canvas {
