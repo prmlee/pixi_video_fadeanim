@@ -46,6 +46,6 @@ div#scrollPanel {
   top: 100%;
   transform: translate(10%, -110%);
   opacity: 0%;
-  padding: 40px;
+  padding: 100px;
   z-index: 3;
 }
