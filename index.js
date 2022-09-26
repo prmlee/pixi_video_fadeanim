@@ -6,12 +6,10 @@ const intervalDuration = 180000;
 let countDownDuration = intervalDuration;
 
 // display debug info when pressing "i" key
-$(document).keypress(function (event) { 
-  if (event.key === 'i') { 
+$("#toggleBtn").click(function () {  
     const display = $("div.infoArea.debug").css("display");
     $("div.infoArea.debug").css("display", display == "none" ? "block" : "none");
     $("div.infoArea.pub").css("display", display == "none" ? "none" : "block");
-  }
 });
 
 // dsiplay the "check every" info
