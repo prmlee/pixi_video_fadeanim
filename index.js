@@ -120,7 +120,12 @@ const app = new PIXI.Application(1080, 1080, { backgroundColor: 0x1099bb });
 // Draw it!
 document.body.appendChild(app.view);
 
-Promise.all([]).then(function() {
+const promiseArray = [];
+for (let i = 0; i < videos.length; i++) { 
+  promiseArray.push(videos[i].load());
+}
+
+Promise.all(promiseArray).then(function() {
   let videoSprites = [], videoTextures = [];
 
   // Create the texture, this will be autoUpdating itself by default
