@@ -16,9 +16,11 @@ div.infoArea {
   position: absolute;
   top: 50%;
   left: 50%;
+  padding: 30px 50px;
   transform: translate(-50%, -50%);
   color: white;
   z-index: 3;
+  background: #00000078;
 }
 
 div.debug {

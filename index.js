@@ -2,7 +2,7 @@ const apiUri = "https://api.coinbase.com/v2/prices/BTC-USD/buy";
 
 var currentPrice = diffPrice = 0;
 var currentIndex = offsetIndex = 0;
-const intervalDuration = 180000;
+const intervalDuration = 3000;
 let countDownDuration = intervalDuration;
 
 // display debug info when pressing "i" key
